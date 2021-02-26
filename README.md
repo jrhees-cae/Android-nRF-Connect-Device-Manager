@@ -1,12 +1,10 @@
 # nRF Connect Device Manager
 
 This repository extends the [McuManager Android Library](https://github.com/JuulLabs-OSS/mcumgr-android).
-It contains the Android library for nRF Connect Device Manager and a sample app, called nRF Connect Device Manager.
-All changes in the *nordic* branch modify only to the app, to which Nordic look & feel has been applied. 
+It contains the Android library for nRF Connect Device Manager and a simplified Reflash app, called Yale Lock CHIP Reflasher.
+All changes in the *yalechip* branch modify only to the app, derived from the sample app in the *master* and *nordic* branches. This version of the app is simplified to handle only FW Upgrades of Yale locks advertising a specific SVC_DATA service. 
 The underlying library, as of now, is 1 to 1 copy of the original. All PRs should be submitted to 
 the original repository.
-
-nRF Connect Device Manager is compatible with Mcu Manager that is supported by Apache Mynewt and Zephyr.
 
 Below find the original documentation from the forked repository.
 
