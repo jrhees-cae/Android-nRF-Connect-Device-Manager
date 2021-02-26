@@ -10,6 +10,8 @@
     <string name="image_upgrade_file_name">File Name:</string>
     <string name="image_upgrade_size">File Size:</string>
     <string name="image_upgrade_size_value">%d bytes</string>
+    <string name="image_upgrade_version">File Version:</string>
+    <string name="image_upgrade_version_value">v%s</string>
     <string name="image_upgrade_hash">File Hash:</string>
     <string name="image_upgrade_status">State:</string>
     <string name="image_upgrade_action_start">Start</string>

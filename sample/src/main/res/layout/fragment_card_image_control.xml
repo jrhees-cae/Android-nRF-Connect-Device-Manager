@@ -25,19 +25,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/image_control_title"/>
+            app:title="@string/image_control_title_alt" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/image_control_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:freezesText="true"
-            android:text="@string/image_control_hint"
+            android:text="@string/image_control_hint_alt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/image_control_error"
@@ -69,10 +69,11 @@
             style="@style/Widget.ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/image_control_action_read"
+            android:layout_marginEnd="16dp"
+            android:text="@string/image_control_action_read_alt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/action_test"
-            app:layout_constraintTop_toBottomOf="@+id/divider"/>
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/action_test"
@@ -81,9 +82,10 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="@string/image_control_action_test"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/action_confirm"
-            app:layout_constraintTop_toBottomOf="@+id/divider"/>
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/action_confirm"
@@ -92,9 +94,10 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="@string/image_control_action_confirm"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/action_erase"
-            app:layout_constraintTop_toBottomOf="@+id/divider"/>
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/action_erase"
@@ -104,10 +107,11 @@
             android:layout_marginEnd="16dp"
             android:enabled="false"
             android:text="@string/image_control_action_erase"
+            android:visibility="gone"
             android:textColor="@color/button_destructive"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider"/>
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -9,12 +9,19 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.jetbrains.annotations.NotNull;
+
+import no.nordicsemi.android.support.v18.scanner.ScanRecord;
 import no.nordicsemi.android.support.v18.scanner.ScanResult;
+import io.runtime.mcumgr.sample.viewmodel.DevicesLiveData;
 
 public class DiscoveredBluetoothDevice implements Parcelable {
     private final BluetoothDevice device;
     private ScanResult lastScanResult;
     private String name;
+    private String version;
+    private String lock_model;
+    private String lock_version;
     private int rssi;
     private int previousRssi;
     private int highestRssi = -128;
@@ -34,6 +41,18 @@ public class DiscoveredBluetoothDevice implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getLockVersion() {
+        return lock_version;
+    }
+
+    public String getLockModel() {
+        return lock_model;
     }
 
     public int getRssi() {
@@ -88,13 +107,32 @@ public class DiscoveredBluetoothDevice implements Parcelable {
         lastScanResult = scanResult;
         name = scanResult.getScanRecord() != null ?
                 scanResult.getScanRecord().getDeviceName() : null;
+
+        StringBuilder versionStr = new StringBuilder("");
+        StringBuilder lockVersionStr = new StringBuilder("");
+        StringBuilder lockModelStr = new StringBuilder("");
+        if (DevicesLiveData.parseSvcData(scanResult.getScanRecord(), versionStr, lockVersionStr, lockModelStr )) {
+            version = versionStr.toString();
+            lock_model = lockModelStr.toString();
+            lock_version = lockVersionStr.toString();
+        }
+        else {
+            version = null;
+            lock_model = null;
+            lock_version = null;
+        }
+
+//        version = "3.2.1+555";
+//        lock_model = "YRD256-CHIP";
+//        lock_version = "1.49";
+
         previousRssi = rssi;
         rssi = scanResult.getRssi();
         if (highestRssi < rssi)
             highestRssi = rssi;
     }
 
-    public boolean matches(final ScanResult scanResult) {
+    public boolean matches(final @NotNull ScanResult scanResult) {
         return device.getAddress().equals(scanResult.getDevice().getAddress());
     }
 
@@ -118,6 +156,9 @@ public class DiscoveredBluetoothDevice implements Parcelable {
         device = in.readParcelable(BluetoothDevice.class.getClassLoader());
         lastScanResult = in.readParcelable(ScanResult.class.getClassLoader());
         name = in.readString();
+        version = in.readString();
+        lock_model = in.readString();
+        lock_version = in.readString();
         rssi = in.readInt();
         previousRssi = in.readInt();
         highestRssi = in.readInt();
@@ -128,6 +169,9 @@ public class DiscoveredBluetoothDevice implements Parcelable {
         parcel.writeParcelable(device, flags);
         parcel.writeParcelable(lastScanResult, flags);
         parcel.writeString(name);
+        parcel.writeString(version);
+        parcel.writeString(lock_model);
+        parcel.writeString(lock_version);
         parcel.writeInt(rssi);
         parcel.writeInt(previousRssi);
         parcel.writeInt(highestRssi);

@@ -56,6 +56,8 @@ public class ScannerActivity extends AppCompatActivity
     ProgressBar mScanningProgressBar;
     @BindView(R.id.no_devices)
     View mEmptyView;
+    @BindView(R.id.text_candidates)
+    View mCandidateText;
     @BindView(R.id.no_location_permission)
     View mNoLocationPermissionView;
     @BindView(R.id.action_grant_location_permission)
@@ -76,6 +78,7 @@ public class ScannerActivity extends AppCompatActivity
         setContentView(R.layout.activity_scanner);
         ButterKnife.bind(this);
 
+/*
         // Display Intro just once.
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!preferences.getBoolean(PREF_INTRO, false)) {
@@ -83,10 +86,11 @@ public class ScannerActivity extends AppCompatActivity
             final Intent launchIntro = new Intent(this, IntroActivity.class);
             startActivity(launchIntro);
         }
+*/
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setTitle(R.string.app_name_long);
 
         // Create view model containing utility methods for scanning
         mScannerViewModel = new ViewModelProvider(this, mViewModelFactory)
@@ -121,10 +125,15 @@ public class ScannerActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
+        /*
         getMenuInflater().inflate(R.menu.filter, menu);
         getMenuInflater().inflate(R.menu.about, menu);
         menu.findItem(R.id.filter_uuid).setChecked(mScannerViewModel.isUuidFilterEnabled());
         menu.findItem(R.id.filter_nearby).setChecked(mScannerViewModel.isNearbyFilterEnabled());
+         */
+        mScannerViewModel.filterByUuid(true);
+        mScannerViewModel.filterByDistance(false);
+
         return true;
     }
 
@@ -213,6 +222,7 @@ public class ScannerActivity extends AppCompatActivity
 
                 if (!state.hasRecords()) {
                     mEmptyView.setVisibility(View.VISIBLE);
+                    mCandidateText.setVisibility(View.GONE);
 
                     if (!Utils.isLocationRequired(this) ||
                             Utils.isLocationEnabled(this)) {
@@ -222,17 +232,20 @@ public class ScannerActivity extends AppCompatActivity
                     }
                 } else {
                     mEmptyView.setVisibility(View.GONE);
+                    mCandidateText.setVisibility(View.VISIBLE);
                 }
             } else {
                 mNoBluetoothView.setVisibility(View.VISIBLE);
                 mScanningProgressBar.setVisibility(View.INVISIBLE);
                 mEmptyView.setVisibility(View.GONE);
+                mCandidateText.setVisibility(View.GONE);
             }
         } else {
             mNoLocationPermissionView.setVisibility(View.VISIBLE);
             mNoBluetoothView.setVisibility(View.GONE);
             mScanningProgressBar.setVisibility(View.INVISIBLE);
             mEmptyView.setVisibility(View.GONE);
+            mCandidateText.setVisibility(View.GONE);
 
             final boolean deniedForever = Utils.isLocationPermissionDeniedForever(this);
             mGrantPermissionButton.setVisibility(deniedForever ? View.GONE : View.VISIBLE);

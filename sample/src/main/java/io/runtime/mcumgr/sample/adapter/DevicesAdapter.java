@@ -7,6 +7,7 @@
 package io.runtime.mcumgr.sample.adapter;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,9 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final DiscoveredBluetoothDevice device = mDevices.get(position);
         final String deviceName = device.getName();
+        final String deviceVersion = device.getVersion();
+        final String lockVersion = device.getLockVersion();
+        final String lockModel = device.getLockModel();
 
         if (!TextUtils.isEmpty(deviceName)) {
             holder.deviceName.setText(deviceName);
@@ -92,6 +96,29 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
         holder.deviceAddress.setText(device.getAddress());
         final int rssiPercent = (int) (100.0f * (127.0f + device.getRssi()) / (127.0f + 20.0f));
         holder.rssi.setImageLevel(rssiPercent);
+        if (!TextUtils.isEmpty(deviceVersion)) {
+            holder.deviceVersion.setText(String.format("v%s", deviceVersion));
+        }
+        else {
+            holder.deviceVersion.setText(String.format("v%s", mContext.getResources().getString(R.string.unknown_version)));
+        }
+        if (!TextUtils.isEmpty(lockModel)) {
+            if (!TextUtils.isEmpty(lockVersion)) {
+                holder.lockVersion.setText(String.format("%s, v%s", lockModel, lockVersion));
+            }
+            else {
+                holder.lockVersion.setText(String.format("%s, v%s", lockModel, mContext.getResources().getString(R.string.unknown_version)));
+            }
+        }
+        else {
+            if (!TextUtils.isEmpty(lockVersion)) {
+                holder.lockVersion.setText(String.format("v%s", lockVersion));
+            }
+            else {
+                holder.lockVersion.setText(String.format("v%s", mContext.getResources().getString(R.string.unknown_version)));
+            }
+        }
+
     }
 
     @Override
@@ -111,6 +138,10 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
         TextView deviceAddress;
         @BindView(R.id.device_name)
         TextView deviceName;
+        @BindView(R.id.device_fw_version)
+        TextView deviceVersion;
+        @BindView(R.id.lock_fw_version)
+        TextView lockVersion;
         @BindView(R.id.rssi)
         ImageView rssi;
 

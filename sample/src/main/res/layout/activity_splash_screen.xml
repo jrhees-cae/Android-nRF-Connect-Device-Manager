@@ -9,22 +9,47 @@
 	This has to be a CoordinatorLayout, or any other layout that dispatches insets
 	to its children, as the image is to be drawn behind status bar as well.
 -->
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
+	android:scaleX="1.2"
+	android:scaleY="1.2"
 	tools:context=".SplashScreenActivity"
 	tools:ignore="ContentDescription">
 
 	<androidx.appcompat.widget.AppCompatImageView
+		android:id="@+id/myImageView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:fitsSystemWindows="true"
-		android:scaleType="centerCrop"
+		android:layout_marginBottom="80dp"
 		android:background="@color/colorNordicLogoTop"
-		app:srcCompat="@drawable/nordic_logo"/>
-	
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		android:fitsSystemWindows="true"
+		android:scaleType="centerInside"
+		android:visibility="visible"
+		app:srcCompat="@drawable/yale_logo"
+		tools:visibility="visible" />
+
+	<TextView
+		android:id="@+id/myImageViewText"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_alignLeft="@id/myImageView"
+		android:layout_alignTop="@id/myImageView"
+		android:layout_alignRight="@id/myImageView"
+		android:layout_alignBottom="@id/myImageView"
+		android:layout_marginStart="0dp"
+		android:layout_marginLeft="0dp"
+		android:layout_marginTop="220dp"
+		android:layout_marginRight="0dp"
+		android:gravity="center"
+		android:text="CHIP Development\nLock Reflash Utility"
+		android:textAlignment="center"
+		android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+		android:textColor="#000000"
+		android:textSize="20sp" />
+
+</RelativeLayout>

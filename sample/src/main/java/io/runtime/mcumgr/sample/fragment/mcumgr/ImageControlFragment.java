@@ -58,13 +58,17 @@ public class ImageControlFragment extends Fragment implements Injectable, Toolba
     @BindView(R.id.action_erase)
     Button mEraseAction;
 
-    private ImageControlViewModel mViewModel;
+    static private ImageControlViewModel mViewModel;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this, mViewModelFactory)
                 .get(ImageControlViewModel.class);
+    }
+
+    public static ImageControlViewModel getImageControlViewModel() {
+        return mViewModel;
     }
 
     @Nullable
@@ -81,7 +85,7 @@ public class ImageControlFragment extends Fragment implements Injectable, Toolba
         ButterKnife.bind(this, view);
 
         final Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.help);
+        /*toolbar.inflateMenu(R.menu.help);*/
         toolbar.setOnMenuItemClickListener(this);
 
         // This makes the layout animate when the TextView value changes.
@@ -130,23 +134,30 @@ public class ImageControlFragment extends Fragment implements Injectable, Toolba
         mTestAction.setOnClickListener(v -> mViewModel.test());
         mConfirmAction.setOnClickListener(v -> mViewModel.confirm());
         mEraseAction.setOnClickListener(v -> mViewModel.erase());
+
+        mViewModel.read();
     }
 
     private void printImageSlotInfo(@Nullable final McuMgrImageStateResponse response) {
         if (response != null) {
             final SpannableStringBuilder builder = new SpannableStringBuilder();
+            /*
             builder.append(getString(R.string.image_control_split_status, response.splitStatus));
             builder.setSpan(new StyleSpan(Typeface.BOLD),
                     0, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            */
             for (final McuMgrImageStateResponse.ImageSlot slot : response.images) {
                 final int index = builder.length();
-                builder.append("\n");
-                builder.append(getString(R.string.image_control_slot,
-                        slot.slot, slot.version, StringUtils.toHex(slot.hash),
-                        slot.bootable, slot.pending, slot.confirmed,
-                        slot.active, slot.permanent));
+                if (index > 0)
+                    builder.append("\n");
+                builder.append(getString(R.string.image_control_slot_alt,
+                        slot.slot, slot.version, StringUtils.toHex(slot.hash)
+                        /*
+                        ,slot.bootable, slot.pending, slot.confirmed,
+                        slot.active, slot.permanent*/
+                ));
                 builder.setSpan(new StyleSpan(Typeface.BOLD),
-                        index, index + 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                        index, index + 8 + 3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
             mValue.setText(builder);
             mError.setVisibility(View.GONE);

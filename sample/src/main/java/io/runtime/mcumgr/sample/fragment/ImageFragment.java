@@ -65,14 +65,16 @@ public class ImageFragment extends Fragment implements Injectable {
 
     @Override
     public void onCreateOptionsMenu(@NonNull final Menu menu, @NonNull final MenuInflater inflater) {
-        inflater.inflate(R.menu.image_mode, menu);
-
+/*        inflater.inflate(R.menu.image_mode, menu);*/
+/*
         menu.findItem(R.id.action_switch_to_advanced)
                 .setVisible(!mModeAdvanced)
                 .setEnabled(!mOperationInProgress);
         menu.findItem(R.id.action_switch_to_basic)
                 .setVisible(mModeAdvanced)
                 .setEnabled(!mOperationInProgress);
+
+ */
     }
 
     @Override
@@ -125,7 +127,7 @@ public class ImageFragment extends Fragment implements Injectable {
         if (savedInstanceState == null) {
             getChildFragmentManager().beginTransaction()
                     .hide(mImageUploadFragment)
-                    .hide(mImageControlFragment)
+                    /*.hide(mImageControlFragment)*/
                     .hide(mResetFragment)
                     .commit();
         }

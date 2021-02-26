@@ -31,12 +31,16 @@ import butterknife.ButterKnife;
 import io.runtime.mcumgr.dfu.FirmwareUpgradeManager;
 import io.runtime.mcumgr.exception.McuMgrException;
 import io.runtime.mcumgr.image.McuMgrImage;
+import io.runtime.mcumgr.image.McuMgrImageHeader;
+import io.runtime.mcumgr.image.McuMgrImageVersion;
 import io.runtime.mcumgr.sample.R;
 import io.runtime.mcumgr.sample.di.Injectable;
 import io.runtime.mcumgr.sample.dialog.FirmwareUpgradeModeDialogFragment;
 import io.runtime.mcumgr.sample.utils.StringUtils;
+import io.runtime.mcumgr.sample.viewmodel.mcumgr.ImageControlViewModel;
 import io.runtime.mcumgr.sample.viewmodel.mcumgr.ImageUpgradeViewModel;
 import io.runtime.mcumgr.sample.viewmodel.mcumgr.McuMgrViewModelFactory;
+import io.runtime.mcumgr.sample.fragment.mcumgr.ImageControlFragment;
 
 public class ImageUpgradeFragment extends FileBrowserFragment implements Injectable {
 
@@ -49,6 +53,8 @@ public class ImageUpgradeFragment extends FileBrowserFragment implements Injecta
     TextView mFileHash;
     @BindView(R.id.file_size)
     TextView mFileSize;
+    @BindView(R.id.file_version)
+    TextView mFileVersion;
     @BindView(R.id.status)
     TextView mStatus;
     @BindView(R.id.progress)
@@ -123,6 +129,9 @@ public class ImageUpgradeFragment extends FileBrowserFragment implements Injecta
                 case COMPLETE:
                     clearFileContent();
                     mStatus.setText(R.string.image_upgrade_status_completed);
+                    mStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorSuccess));
+                    // re-read slot info
+                    ImageControlFragment.getImageControlViewModel().read();
                     break;
             }
         });
@@ -139,6 +148,7 @@ public class ImageUpgradeFragment extends FileBrowserFragment implements Injecta
             mFileName.setText(null);
             mFileSize.setText(null);
             mFileHash.setText(null);
+            mFileVersion.setText(null);
             mStatus.setText(null);
             mSelectFileAction.setVisibility(View.VISIBLE);
             mStartAction.setVisibility(View.VISIBLE);
@@ -157,9 +167,12 @@ public class ImageUpgradeFragment extends FileBrowserFragment implements Injecta
         // Restore START action state after rotation
         mStartAction.setEnabled(isFileLoaded());
         mStartAction.setOnClickListener(v -> {
+            /*
             // Show a mode picker. When mode is selected, the upgrade(Mode) method will be called.
             final DialogFragment dialog = FirmwareUpgradeModeDialogFragment.getInstance();
             dialog.show(getChildFragmentManager(), null);
+            */
+            start(FirmwareUpgradeManager.Mode.TEST_ONLY);
         });
 
         // Cancel and Pause/Resume buttons
@@ -190,6 +203,7 @@ public class ImageUpgradeFragment extends FileBrowserFragment implements Injecta
     protected void onFileSelected(@NonNull final String fileName, final int fileSize) {
         mFileName.setText(fileName);
         mFileSize.setText(getString(R.string.image_upgrade_size_value, fileSize));
+        mFileVersion.setText("v-.-.-");
     }
 
     @Override
@@ -197,8 +211,13 @@ public class ImageUpgradeFragment extends FileBrowserFragment implements Injecta
         try {
             final byte[] hash = McuMgrImage.getHash(data);
             mFileHash.setText(StringUtils.toHex(hash));
+            final McuMgrImageHeader header = McuMgrImage.getHeader(data);
+            final McuMgrImageVersion version = header.getVersion();
+            mFileVersion.setText(String.format("v%d.%d.%d+%d", version.getMajor(), version.getMinor(), version.getRevision(), version.getBuildNum()));
             mStartAction.setEnabled(true);
             mStatus.setText(R.string.image_upgrade_status_ready);
+            // Set back to default color
+            mStatus.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
         } catch (final McuMgrException e) {
             clearFileContent();
             onFileLoadingFailed(R.string.image_error_file_not_valid);

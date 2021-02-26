@@ -89,6 +89,11 @@ public class McuMgrImage {
     }
 
     @NotNull
+    public static McuMgrImageHeader getHeader(@NotNull byte[] data) throws McuMgrException {
+        return fromBytes(data).getHeader();
+    }
+
+    @NotNull
     public static McuMgrImage fromBytes(@NotNull byte[] data) throws McuMgrException {
         McuMgrImageHeader header = McuMgrImageHeader.fromBytes(data);
         int tlvOffset = header.getHdrSize() + header.getImgSize();

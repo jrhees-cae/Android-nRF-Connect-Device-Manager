@@ -7,7 +7,7 @@
 <resources>
 	<!--<string name="app_name">Mcu Mgr Sample</string>-->
 
-	<string name="title">@string/app_name</string>
+	<string name="title">@string/app_name_long</string>
 
 	<string name="menu_help">Help</string>
 	<string name="menu_settings">Settings</string>
@@ -17,11 +17,22 @@
 
 	<string name="unknown_device">Unknown Device</string>
 
+	<string name="unknown_version">"???"</string>
+
+	<string name="mac_addr_title">MAC:</string>
+	<string name="rf_fwv_title">FW:</string>
+	<string name="lock_fwv_title">Lock:</string>
+
 	<string name="location_permission_title">LOCATION PERMISSION REQUIRED</string>
 	<string name="location_permission_info">From Android 6.0 Marshmallow onwards the application
         requires Location permission in order to scan for Bluetooth Low Energy devices.\n\nThis
         is because Bluetooth LE beacons, for example iBeacons or Eddystone, may be used to
         determine the phone\'s and user\'s location. <b>Mcu Mgr Sample</b> will not use this
+        information in any way.</string>
+	<string name="location_permission_info_alt">From Android 6.0 Marshmallow onwards the application
+        requires Location permission in order to scan for Bluetooth Low Energy devices, such as the Yale-CHIP lock.\n\nThis
+        is because Bluetooth LE beacons may be used to
+        determine the phone\'s and user\'s location. The <b>Yale CHIP Lock Reflasher</b> utility will not use this
         information in any way.</string>
 	<string name="location_permission_action">Grant permission</string>
 	<string name="location_permission_settings">Settings</string>
@@ -32,10 +43,17 @@
 	<string name="bluetooth_disabled_action">Enable</string>
 
 	<string name="mcumgr_guide_title">CAN\'T SEE YOUR DEVICE?</string>
+	<string name="mcumgr_guide_title_alt">SEARCHING FOR LOCKS...</string>
 	<string name="mcumgr_guide_info">1. Make sure the device is <b>turned on</b> and is connected
         to a power source.\n\n2. Make sure the firmware with <b>SMP server</b> is flashed and the
         device is advertising.\n\n3. Check the filter settings. By default, the scanner displays only
         devices that advertise SMP service UUID (8D53DC1D–1DB7–4CD3–868B–8A527460AA84).</string>
+	<string name="mcumgr_guide_info_alt">Locks will appear on this scan list for a short time after power-up.\n\n
+		Power-cycle the lock:\n
+		\t\t• Remove at least one of the batteries\n
+		\t\t• <b>Wait 10 seconds</b>\n
+		\t\t• Re-insert the batteries\n
+		\nThe lock should appear on this list for up to <b>30 seconds</b> before it times out.</string>
 	<string name="mcumgr_guide_location_info">3. Location is turned off. Some Android phones
         require it enabled in order to scan for Bluetooth LE devices. If you are sure your
         device is advertising and it doesn\'t show up here, click the button below to

@@ -164,7 +164,7 @@ public class ImageControlViewModel extends McuMgrViewModel {
         final boolean slot1NotConfirmed = hasSlot1 && !response.images[1].confirmed;
         mResponseLiveData.postValue(response);
         mTestAvailableLiveData.postValue(slot1NotPending);
-        mConfirmAvailableLiveData.postValue(slot1NotPermanent);
+        mConfirmAvailableLiveData.postValue(true/*slot1NotPermanent*/);
         mEraseAvailableLiveData.postValue(slot1NotConfirmed);
         postReady();
     }

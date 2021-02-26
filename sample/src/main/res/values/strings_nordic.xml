@@ -32,7 +32,8 @@
 
 <resources>
 
-	<string name="app_name">Device Manager</string>
-	<string name="feature_name">DEVICE MANAGER</string>
+	<string name="app_name">CHIP Lock Reflasher</string>
+	<string name="app_name_long">Yale-CHIP Lock Reflasher</string>
+	<string name="feature_name">CHIP LOCK REFLASH UTILITY</string>
 
 </resources>

@@ -73,8 +73,11 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(deviceName);
         getSupportActionBar().setSubtitle(deviceAddress);
 
+
+        /*
         final BottomNavigationView navMenu = findViewById(R.id.nav_menu);
-        navMenu.setSelectedItemId(R.id.nav_default);
+//        navMenu.setSelectedItemId(R.id.nav_default);
+        navMenu.setSelectedItemId(R.id.nav_dfu);
         navMenu.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_default:
@@ -103,7 +106,9 @@ public class MainActivity extends AppCompatActivity
                     return true;
             }
             return false;
-        });
+        })
+
+         */
 
         // Initialize fragments.
         if (savedInstanceState == null) {
@@ -118,7 +123,8 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.container, mFilesFragment, "fs")
                     .add(R.id.container, mLogsStatsFragment, "logs")
                     // Initially, show the Device fragment and hide others.
-                    .hide(mImageFragment).hide(mFilesFragment).hide(mLogsStatsFragment)
+//                    .hide(mImageFragment).hide(mFilesFragment).hide(mLogsStatsFragment)
+                    .hide(mDeviceFragment).hide(mFilesFragment).hide(mLogsStatsFragment)
                     .commit();
         } else {
             mDeviceFragment = getSupportFragmentManager().findFragmentByTag("device");
