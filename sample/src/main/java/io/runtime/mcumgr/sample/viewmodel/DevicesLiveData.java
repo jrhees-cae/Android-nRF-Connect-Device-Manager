@@ -153,7 +153,7 @@ public class DevicesLiveData extends LiveData<List<DiscoveredBluetoothDevice>> {
         lock_model.delete(0, lock_model.length());
         fw_version.append(String.format("%d.%d.%d", svcData[1] & 0xff, svcData[2] & 0xff, (svcData[3] & 0xff) | ((svcData[4] & 0xff) << 8)));
         if ((svcData[6] != 0) || (svcData[5] != 0)) {
-            lock_version.append(String.format("%d.%d.%d", svcData[6] / 10, svcData[6] % 10, svcData[5]));
+            lock_version.append(String.format("%d.%d.%d", svcData[5] / 10, svcData[5] % 10, svcData[6]));
         }
         final int model = (svcData[7] & 0xff) | ((svcData[8] & 0xff) << 8);
         String modelStr;
@@ -163,7 +163,7 @@ public class DevicesLiveData extends LiveData<List<DiscoveredBluetoothDevice>> {
                 modelStr = "YRD216";
                 break;
             case 0x8002:
-                modelStr = "YRD226/246/446";
+                modelStr = "YRD226/246/256/446";
                 break;
             case 0x8005:
                 modelStr = "PUSH-ZB/ZW";

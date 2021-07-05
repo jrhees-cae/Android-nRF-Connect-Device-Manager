@@ -32,8 +32,8 @@
 
 <resources>
 
-	<string name="app_name">CHIP Lock Reflasher</string>
-	<string name="app_name_long">Yale-CHIP Lock Reflasher</string>
-	<string name="feature_name">CHIP LOCK REFLASH UTILITY</string>
+	<string name="app_name">Dev-Lock Updater</string>
+	<string name="app_name_long">Yale-Matter Dev Lock Updater</string>
+	<string name="feature_name">MATTER LOCK UPDATE UTILITY</string>
 
 </resources>

@@ -149,6 +149,8 @@ public class ImageControlFragment extends Fragment implements Injectable, Toolba
             for (final McuMgrImageStateResponse.ImageSlot slot : response.images) {
                 final int index = builder.length();
                 if (index > 0)
+                    continue; // For now, only show first slot
+                if (index > 0)
                     builder.append("\n");
                 builder.append(getString(R.string.image_control_slot_alt,
                         slot.slot, slot.version, StringUtils.toHex(slot.hash)

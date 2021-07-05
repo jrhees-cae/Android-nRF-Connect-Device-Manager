@@ -30,9 +30,9 @@
         determine the phone\'s and user\'s location. <b>Mcu Mgr Sample</b> will not use this
         information in any way.</string>
 	<string name="location_permission_info_alt">From Android 6.0 Marshmallow onwards the application
-        requires Location permission in order to scan for Bluetooth Low Energy devices, such as the Yale-CHIP lock.\n\nThis
+        requires Location permission in order to scan for Bluetooth Low Energy devices, such as the Yale-Matter lock.\n\nThis
         is because Bluetooth LE beacons may be used to
-        determine the phone\'s and user\'s location. The <b>Yale CHIP Lock Reflasher</b> utility will not use this
+        determine the phone\'s and user\'s location. The <b>Yale Matter Lock Updater</b> utility will not use this
         information in any way.</string>
 	<string name="location_permission_action">Grant permission</string>
 	<string name="location_permission_settings">Settings</string>

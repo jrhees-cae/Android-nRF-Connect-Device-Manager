@@ -271,9 +271,9 @@ public class FirmwareUpgradeManager implements FirmwareUpgradeController {
         mHash = McuMgrImage.getHash(imageData);
 
         // Adjust swap time estimate based on image size
-        // A 500KB image takes about 45 seconds
+        // A 500KB image takes about 50 seconds
         final int imageSizeKB = imageData.length / 1024;
-        final int swapTimeMsec = 45000 * imageSizeKB / 500;
+        final int swapTimeMsec = 50000 * imageSizeKB / 500;
         setEstimatedSwapTime(swapTimeMsec);
 
         // Begin the upload
