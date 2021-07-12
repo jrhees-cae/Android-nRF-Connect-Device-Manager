@@ -438,7 +438,7 @@ public class McuMgrBleTransport extends BleManager implements McuMgrTransport {
             return;
         }
         connect(mDevice)
-                .retry(3, 100)
+                .retry(6, 100)
                 .done(new SuccessCallback() {
                     @Override
                     public void onRequestCompleted(@NonNull BluetoothDevice device) {
